@@ -1,0 +1,267 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+ 
+    <groupId>Athena</groupId>
+    <artifactId>AthenaJDBC${env.JDBC_V}</artifactId>
+    <version>${env.MAJOR_V}.${env.MINOR_V}.${env.REVISION_V}.${env.BUILD_V}</version>
+    <packaging>jar</packaging>
+    <name>AthenaJDBC${env.JDBC_V}</name>
+    <url>http://maven.apache.org</url>
+  
+  <profiles>
+        <profile>
+            <id>42</id>
+            <properties>
+                <JACKSON_V>${env.JACKSON_V}</JACKSON_V>
+                <JACKSON_DATABIND_V>${env.JACKSON_DATABIND_V}</JACKSON_DATABIND_V>
+                <LOG4J_V>${env.LOG4J_V}</LOG4J_V>
+                <LOG4J_JCL_V>${env.LOG4J_JCL_V}</LOG4J_JCL_V>
+            </properties>
+        </profile>
+        <profile>
+            <id>41</id>
+            <properties>
+                <JACKSON_V>2.12.1</JACKSON_V>
+                <JACKSON_DATABIND_V>2.12.1</JACKSON_DATABIND_V>
+                <LOG4J_V>2.12.1</LOG4J_V>
+                <LOG4J_JCL_V>2.12.1</LOG4J_JCL_V>
+            </properties>
+        </profile>
+    </profiles>
+    <dependencies>
+    
+        <dependency>
+            <groupId>sb_commons-codec</groupId>
+            <artifactId>sb_commons-codec</artifactId>
+            <version>${env.COMMONS_CODEC_V}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>sb_commons-csv</groupId>
+            <artifactId>sb_commons-csv</artifactId>
+            <version>${env.COMMONS_CSV_V}</version>
+        </dependency>
+                
+        <dependency>
+            <groupId>sb_commons-logging</groupId>
+            <artifactId>sb_commons-logging</artifactId>
+            <version>${env.COMMONS_LOGGING_V}</version>
+  
+
+            <exclusions>
+        <exclusion>  <!-- declare the exclusion here -->
+          <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>sb_httpclient</groupId>
+            <artifactId>sb_httpclient</artifactId>
+            <version>${env.HTTP_CLIENT_V}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>sb_httpcore</groupId>
+            <artifactId>sb_httpcore</artifactId>
+            <version>${env.HTTP_CORE_V}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>sb_jackson-annotations</groupId>
+            <artifactId>sb_jackson-annotations</artifactId>
+            <version>${JACKSON_V}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>sb_jackson-core</groupId>
+            <artifactId>sb_jackson-core</artifactId>
+            <version>${JACKSON_V}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>sb_jackson-databind</groupId>
+            <artifactId>sb_jackson-databind</artifactId>
+            <version>${JACKSON_DATABIND_V}</version>
+        </dependency>       
+         
+        <dependency>
+            <groupId>sb_joda-time</groupId>
+            <artifactId>sb_joda-time</artifactId>
+            <version>${env.JODA_TIME_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_aws-java-sdk-athena</groupId>
+            <artifactId>sb_aws-java-sdk-athena</artifactId>
+            <version>${env.AWS_SDK_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_aws-java-sdk-core</groupId>
+            <artifactId>sb_aws-java-sdk-core</artifactId>
+            <version>${env.AWS_SDK_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_aws-java-sdk-glue</groupId>
+            <artifactId>sb_aws-java-sdk-glue</artifactId>
+            <version>${env.AWS_SDK_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_aws-java-sdk-sts</groupId>
+            <artifactId>sb_aws-java-sdk-sts</artifactId>
+            <version>${env.AWS_SDK_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_aws-java-sdk-athena-stream-client</groupId>
+            <artifactId>sb_aws-java-sdk-athena-stream-client</artifactId>
+            <version>${env.AWS_SDK_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_aws-java-sdk-lakeformation</groupId>
+            <artifactId>sb_aws-java-sdk-lakeformation</artifactId>
+            <version>${env.AWS_SDK_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_log4j_api</groupId>
+            <artifactId>sb_log4j_api</artifactId>
+            <version>${LOG4J_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_log4j_core</groupId>
+            <artifactId>sb_log4j_core</artifactId>
+            <version>${LOG4J_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_log4j_jcl</groupId>
+            <artifactId>sb_log4j_jcl</artifactId>
+            <version>${LOG4J_JCL_V}</version>
+        </dependency>
+        <dependency>
+            <groupId>sb_AthenaJDBC</groupId>
+            <artifactId>sb_AthenaJDBC</artifactId>
+            <version>${env.MAJOR_V}.${env.MINOR_V}.${env.REVISION_V}.${env.BUILD_V}</version>
+        </dependency>
+    </dependencies>
+ 
+    <build>
+        <finalName>AthenaJDBC${env.JDBC_V}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                        
+                            <!-- Transformation -->
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Multi-Release>true</Multi-Release>
+                                    </manifestEntries>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="io.github.edwgiz.log4j.maven.plugins.shade.transformer.Log4j2PluginCacheFileTransformer">
+                                </transformer>
+                            </transformers>
+                            
+                            <!-- Shade Thirdparty Libraries -->
+                            
+                            <relocations>
+                            
+                              <relocation>
+                                <pattern>org.joda</pattern>
+                                <shadedPattern>com.${env.DRV_BRAND_LOWER}.athena.shaded.joda</shadedPattern>
+                              </relocation>
+                              
+                              <relocation>
+                                <pattern>com.amazonaws</pattern>
+                                <shadedPattern>com.${env.DRV_BRAND_LOWER}.athena.amazonaws</shadedPattern>
+                                <excludes>
+                                    <exclude>com.amazonaws.auth.AWSCredentials</exclude>
+                                    <exclude>com.amazonaws.auth.AWSCredentialsProvider</exclude>
+                                    <exclude>com.amazonaws.auth.AWSSessionCredentials</exclude>
+                                    <exclude>com.amazonaws.auth.AWSSessionCredentialsProvider</exclude>
+                                </excludes>
+                              </relocation>
+                              
+                              <relocation>
+                                <pattern>com.fasterxml</pattern>
+                                <shadedPattern>com.${env.DRV_BRAND_LOWER}.athena.shaded.fasterxml</shadedPattern>
+                              </relocation>
+                              
+                              <!-- <relocation>
+                                <pattern>org.apache</pattern>
+                                <shadedPattern>com.${env.DRV_BRAND_LOWER}.athena.shaded.apache</shadedPattern>
+                              </relocation> -->
+                              
+                            </relocations>
+
+                            <filters>
+                                <filter>
+                                <artifact>*:*</artifact>
+                                <excludes>
+                                    <exclude>META-INF/services/org.apache.commons.logging.LogFactory</exclude>
+                                    <!-- <exclude>**/Log4j2Plugins.dat</exclude> -->
+                                </excludes>
+                                </filter>
+                            </filters>
+                            
+                            <!-- Filter out thirdparty artifacts. Commented out unless customer needs it.-->
+                            <!-- =================================================================
+                            <filters>
+                                <filter>
+                                  <artifact>*:*</artifact>
+                                  <excludes>
+                                    <exclude>META-INF/services/com.fasterxml.jackson.core.JsonFactory</exclude>
+                                    <exclude>META-INF/services/com.fasterxml.jackson.core.ObjectCodec</exclude>
+                                    <exclude>META-INF/maven/**</exclude>
+                                    <exclude>META-INF/DEPENDENCIES</exclude>
+                                    <exclude>META-INF/LICENSE</exclude>
+                                    <exclude>META-INF/LICENSE.txt</exclude>
+                                    <exclude>META-INF/NOTICE</exclude>
+                                    <exclude>META-INF/NOTICE.txt</exclude>
+                                    <exclude>META-INF/MANIFEST.MF</exclude>
+                                  </excludes>
+                                </filter>
+                            </filters>
+                            ================================================================= -->
+                            
+                            <!-- Define output directory -->
+                            <outputFile>${env.DRIVER_JAR_PATH}/AthenaJDBC${env.JDBC_V}.jar</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.github.edwgiz</groupId>
+                        <artifactId>log4j-maven-shade-plugin-extensions</artifactId>
+                        <version>2.17.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            <!-- Replace with the MANIFEST File generated by Ant. Commented out unless customer needs it.-->
+            <!-- =================================================================
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${env.DRIVER_JAR_PATH}/branded/extract/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            ================================================================= -->
+        </plugins>
+    </build>
+</project>
